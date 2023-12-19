@@ -6,7 +6,10 @@ def generate_story_list(directory):
     for filename in os.listdir(directory):
         if filename.endswith(".txt") and not filename.startswith('.'):
             name, age = filename.rsplit('.', 1)[0].split('_', 1)
-            stories.append({"name": name, "age": age, "enable": True})
+            content = open(os.path.join(directory, filename), 'r', encoding='utf-8').read()
+            #content remove empty line
+            content = os.linesep.join([s for s in content.splitlines() if s])
+            stories.append({"name": name, "age": age, "enable": True, "content": content})
 
     return stories
 
