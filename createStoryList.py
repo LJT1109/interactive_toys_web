@@ -6,7 +6,7 @@ def generate_story_list(directory):
     for filename in os.listdir(directory):
         if filename.endswith(".txt") and not filename.startswith('.'):
             name, age = filename.rsplit('.', 1)[0].split('_', 1)
-            stories.append({"name": name, "age": age})
+            stories.append({"name": name, "age": age, "enable": True})
 
     return stories
 
