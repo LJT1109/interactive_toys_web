@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver TTs Form</title>
+</head>
+<body>
+    <form id="voiceForm">
+        <table>
+            <tr>
+                <td>Content:</td>
+                <td><textarea name="content"></textarea></td>
+            </tr>
+            <tr>
+                <td>Server:</td>
+                <td>
+                    <select name="server">
+                        <option value="https://adt109119-liver-chinese.hf.space">https://adt109119-liver-chinese.hf.space</option>
+                        <option value="http://api.jingtw.tk/liver_voice">http://api.jingtw.tk/liver_voice</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Noise Scale:</td>
+                <td><input type="number" name="noise_scale" value="0.6"></td>
+            </tr>
+            <tr>
+                <td>Noise Scale W:</td>
+                <td><input type="number" name="noise_scale_w" value="0.668"></td>
+            </tr>
+            <tr>
+                <td>Speed:</td>
+                <td><input type="number" name="speed" value="1.0"></td>
+            </tr>
+            <tr>
+                <td>Model:</td>
+                <td>
+                    <select name="model">
+                        <option value="LiverFix">LiverFix</option>
+                        <option value="Liver">Liver</option>
+                        <option value="Yen">Yen</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+    <audio id="audioPlayer" controls></audio>
+
+    <script>
+        document.getElementById('voiceForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var formdata = new FormData(this);
+            var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            };
+            
+            fetch("https://jingtw.tk/~ljt/project/09_Liv3r%20Liver/tts.php", requestOptions)
+                .then(response => response.blob())
+                .then(blob => {
+                    var url = URL.createObjectURL(blob);
+                    document.getElementById('audioPlayer').src = url;
+                })
+                .catch(error => console.log('error', error));
+        });
+    </script>
+</body>
+</html>
